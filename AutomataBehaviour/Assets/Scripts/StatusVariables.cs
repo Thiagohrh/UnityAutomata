@@ -36,11 +36,8 @@ public class StatusVariables : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        //if (Input.GetKeyDown(KeyCode.KeypadEnter)) 
-        //{
-        //    navMeshAgent.SetDestination(hydrationPoint.position);
-        //}
+	void Update () 
+    {
         LowerDispositions();
 	}
     private void LowerDispositions() 
@@ -62,19 +59,6 @@ public class StatusVariables : MonoBehaviour {
     public void RecoverDisposition(int rate) 
     {
         disposition += rate * Time.deltaTime;
-    }
-
-    public Vector3 GetHydrationPosition() 
-    {
-        return hydrationPoint.position;
-    }
-    public Vector3 GetSleepPosition() 
-    {
-        return sleepPoint.position;
-    }
-    public NavMeshAgent GetNavMeshAgent() 
-    {
-        return navMeshAgent;
     }
 
     public void SetHydrationWants() 
