@@ -8,11 +8,8 @@ using UnityEngine.AI;
     }
 
 public class StatusVariables : MonoBehaviour {
-
-    [SerializeField]
-    private float hydration { get; set; }
-    [SerializeField]
-    private float disposition { get; set; }
+    public float hydration { get; set; }
+    public float disposition { get; set; }
 
     [SerializeField]
     private Transform hydrationPoint;
@@ -26,11 +23,16 @@ public class StatusVariables : MonoBehaviour {
 
     public Vector3 NextDestination { get; set; }
 
+    //Let it be known, that I have no plans on how to implement this. Just going with the flow.
+    private Animator animator;
+
     // Use this for initialization
     void Start () {
         hydration = 10.0f;
         disposition = 10.0f;
         want = Wants.Default;
+
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -47,6 +49,10 @@ public class StatusVariables : MonoBehaviour {
             hydration -= 1 * Time.deltaTime;
         if (disposition > 0)
             disposition -= 1 * Time.deltaTime;
+
+        animator.SetFloat("hydration", hydration);
+        animator.SetFloat("disposition", disposition);
+        animator.SetFloat("distanceToTarget", navMeshAgent.remainingDistance);
     }
 
     public void RecoverHydration(int rate) 
@@ -69,5 +75,18 @@ public class StatusVariables : MonoBehaviour {
     public NavMeshAgent GetNavMeshAgent() 
     {
         return navMeshAgent;
+    }
+
+    public void SetHydrationWants() 
+    {
+        want = Wants.Drink;
+        nextDestination = hydrationPoint.position;
+        navMeshAgent.SetDestination(nextDestination);
+    }
+    public void SetDispositionWants() 
+    {
+        want = Wants.Sleep;
+        nextDestination = sleepPoint.position;
+        navMeshAgent.SetDestination(nextDestination);
     }
 }
