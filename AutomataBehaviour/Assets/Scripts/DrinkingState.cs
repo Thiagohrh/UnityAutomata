@@ -14,7 +14,7 @@ public class DrinkingState : StateMachineBehaviour {
 
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
     {
-        statusVariables.RecoverHydration(3);
+        statusVariables.RecoverHydration(5);
     }
 
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 

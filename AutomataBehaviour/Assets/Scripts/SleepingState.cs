@@ -12,7 +12,7 @@ public class SleepingState : StateMachineBehaviour {
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
     {
-        statusVariables.RecoverDisposition(3);
+        statusVariables.RecoverDisposition(5);
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 

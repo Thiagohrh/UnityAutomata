@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-    public enum Wants
+using TMPro;
+using System;
+
+public enum Wants
     {
         Default, Drink, Sleep
     }
@@ -17,16 +20,15 @@ public class StatusVariables : MonoBehaviour {
     private Transform sleepPoint;
     [SerializeField]
     private NavMeshAgent navMeshAgent;
-    //Control variables to check navMesh destination and stuff.
+    [SerializeField]
+    private TMP_Text dispositionText;
+    [SerializeField]
+    private TMP_Text hydrationText;
     private Vector3 nextDestination;
     private Wants want { get; set; }
-
     public Vector3 NextDestination { get; set; }
-
-    //Let it be known, that I have no plans on how to implement this. Just going with the flow.
     private Animator animator;
 
-    // Use this for initialization
     void Start () {
         hydration = 10.0f;
         disposition = 10.0f;
@@ -35,7 +37,6 @@ public class StatusVariables : MonoBehaviour {
         animator = GetComponent<Animator>();
 	}
 	
-	// Update is called once per frame
 	void Update () 
     {
         LowerDispositions();
@@ -50,6 +51,19 @@ public class StatusVariables : MonoBehaviour {
         animator.SetFloat("hydration", hydration);
         animator.SetFloat("disposition", disposition);
         animator.SetFloat("distanceToTarget", navMeshAgent.remainingDistance);
+
+        UpdateHUD();
+        CheckForEscKey();
+    }
+    private void CheckForEscKey() 
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+    }
+    private void UpdateHUD() 
+    {
+        hydrationText.SetText($"Hydration: {Mathf.Round(hydration)}");
+        dispositionText.SetText($"Disposition: {Mathf.Round(disposition)}");
     }
 
     public void RecoverHydration(int rate) 
